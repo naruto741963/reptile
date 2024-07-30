@@ -50,10 +50,9 @@ while True:
                 user_ids.append(user_id)
                 contents.append(content)
                 times.append(time)
-
-            df = pd.DataFrame(
-                {"作者": [span[0].text], "標題": [span[2].text], "發文時間": [span[3].text], "內文": [text],
-                 "類別": [span[1].text], "留言作者": user_ids, "留言內文": contents, "留言時間": [times]})
+            data = {"作者": [span[0].text], "標題": [span[2].text], "發文時間": [span[3].text], "內文": [text],
+                 "類別": [span[1].text], "留言作者": user_ids, "留言內文": contents, "留言時間": times}
+            df = pd.DataFrame.from_dict(data, orient='index').T
             df = df.applymap(lambda x: str(x) if not isinstance(x, str) else x)
             df = df.applymap(lambda x: x.encode('big5', 'replace').decode('big5'))
             filename = re.sub(r'[<>:"/\\|?*]', '_', span[2].text) + ".csv"

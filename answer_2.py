@@ -33,7 +33,7 @@ while True:
         times = []
 
         for title, date in zip(titles, dates):
-            if date.text.strip() not in toDay:
+            if date.text.strip() not in endDay:
                 toDayFlag = True
                 continue
 
